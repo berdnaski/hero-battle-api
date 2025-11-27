@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HeroRequestDTO {
-
     @NotBlank(message = "Nome não pode ser nulo ou vazio")
     private String name;
 
