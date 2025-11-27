@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface HeroRepository extends JpaRepository<Hero, UUID>, JpaSpecificationExecutor<Hero> {
+public interface HeroRepository extends JpaRepository<Hero, String>, JpaSpecificationExecutor<Hero> {
     Optional<Hero> findByName(String name);
 }
