@@ -45,26 +45,33 @@ public class HeroService {
     }
 
     public MessageResponseDTO attackHero(String id, AttackRequestDTO req) {
-        Hero hero = heroRepository.findById(UUID.fromString(id))
-                .orElseThrow(() -> new EntityNotFoundException("O herói não está no campo de batalha."));
+        try {
+            Hero hero = heroRepository.findById(id)
+                    .orElseThrow(() -> {
+                        return new EntityNotFoundException("O herói não está no campo de batalha.");
+                    });
 
-        if (req.getAttackValue() <= hero.getDefensePower()) {
-            return new MessageResponseDTO("O herói não sofreu danos, tente novamente.");
+            if (req.getAttackValue() <= hero.getDefensePower()) {
+                return new MessageResponseDTO("O herói não sofreu danos, tente novamente.");
+            }
+
+            int damage = req.getAttackValue() - hero.getDefensePower();
+            int newHealth = hero.getHealth() - damage;
+
+            if (newHealth < 0) {
+                newHealth = 0;
+            }
+
+            hero.setHealth(newHealth);
+            heroRepository.save(hero);
+
+            return new MessageResponseDTO(
+                    String.format("O herói sofreu danos. Vida atual: %d", newHealth)
+            );
+
+        } catch (Exception e) {
+            throw new EntityNotFoundException("O herói não está no campo de batalha.");
         }
-
-        int damage = req.getAttackValue() - hero.getDefensePower();
-        int newHealth = hero.getHealth() - damage;
-
-        if (newHealth < 0) {
-            newHealth = 0;
-        }
-
-        hero.setHealth(newHealth);
-        heroRepository.save(hero);
-
-        return new MessageResponseDTO(
-                String.format("O herói sofreu danos. Vida atual: %d", newHealth)
-        );
     }
 
     private HeroResponseDTO toResponseDTO(Hero hero) {
