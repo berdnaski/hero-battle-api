@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 
 @Entity
 @Table(name = "heroes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

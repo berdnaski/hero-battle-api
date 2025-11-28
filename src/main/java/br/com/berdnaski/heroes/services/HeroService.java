@@ -22,11 +22,12 @@ public class HeroService {
     private final HeroRepository heroRepository;
 
     public HeroResponseDTO create(HeroRequestDTO req) {
-        Hero hero = new Hero();
-        hero.setName(req.getName());
-        hero.setAttackPower(req.getAttackPower());
-        hero.setDefensePower(req.getDefensePower());
-        hero.setHealth(req.getHealth());
+        Hero hero = Hero.builder()
+                .name(req.getName())
+                .attackPower(req.getAttackPower())
+                .defensePower(req.getDefensePower())
+                .health(req.getHealth())
+                .build();
 
         Hero saved = heroRepository.save(hero);
         return toResponseDTO(saved);
