@@ -35,6 +35,12 @@ public class HeroController {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<HeroResponseDTO> getById(@PathVariable String id) {
+        HeroResponseDTO res = heroService.getById(id);
+        return ResponseEntity.ok(res);
+    }
+
     @PutMapping("/{id}/attack")
     public ResponseEntity<MessageResponseDTO> attack(
             @PathVariable String id,

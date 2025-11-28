@@ -44,6 +44,12 @@ public class HeroService {
                 .collect(Collectors.toList());
     }
 
+    public HeroResponseDTO getById(String id) {
+        Hero hero = heroRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("O herói não está no campo de batalha."));
+        return toResponseDTO(hero);
+    }
+
     public MessageResponseDTO attackHero(String id, AttackRequestDTO req) {
         try {
             Hero hero = heroRepository.findById(id)
