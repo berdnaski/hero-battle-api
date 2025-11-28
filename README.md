@@ -45,6 +45,10 @@ mvn spring-boot:run
 
 A aplicação estará disponível em: `http://localhost:8080`
 
+Documentação (Swagger):
+- UI: `http://localhost:8080/swagger-ui/index.html`
+- OpenAPI JSON: `http://localhost:8080/v3/api-docs`
+
 ## 📚 Endpoints da API
 
 ### 🦸‍♂️ Criar Herói
